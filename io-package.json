@@ -1,6 +1,6 @@
 {
     "common": {
-        "name": "template",
+        "name": "mygekko",
         "version": "0.0.1",
         "news": {
             "0.0.1": {
@@ -16,18 +16,18 @@
                 "zh-cn": "首次出版"
             }
         },
-        "title": "Template (JavaScript)",
+        "title": "Mygekko",
         "titleLang": {
-            "en": "Template (JavaScript)",
-            "de": "Vorlage (JavaScript)",
-            "ru": "Шаблон (JavaScript)",
-            "pt": "Modelo (JavaScript)",
-            "nl": "Sjabloon (JavaScript)",
-            "fr": "Modèle (JavaScript)",
-            "it": "Modello (JavaScript)",
-            "es": "Plantilla (JavaScript)",
-            "pl": "Szablon (JavaScript)",
-            "zh-cn": "范本（JavaScript）"
+            "en": "Mygekko",
+            "de": "Mygekko",
+            "ru": "Mygekko",
+            "pt": "Mygekko",
+            "nl": "Mygekko",
+            "fr": "Mygekko",
+            "it": "Mygekko",
+            "es": "Mygekko",
+            "pl": "Mygekko",
+            "zh-cn": "Mygekko"
         },
         "desc": {
             "en": "Template for adapter development",
@@ -42,7 +42,7 @@
             "zh-cn": "适配器开发的模板"
         },
         "authors": [
-            "Author <author@mail.com>"
+            "Martin Friedrichs <info@vogelbecker.de>"
         ],
         "keywords": [
             "ioBroker",
@@ -55,10 +55,11 @@
         "main": "main.js",
         "icon": "template.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Author/ioBroker.template/master/admin/template.png",
-        "readme": "https://github.com/Author/ioBroker.template/blob/master/README.md",
+        "extIcon": "https://raw.githubusercontent.com/Vogelbecker/ioBroker.mygekko/master/admin/template.png",
+        "readme": "https://github.com/Vogelbecker/ioBroker.mygekko/blob/master/README.md",
         "loglevel": "info",
-        "mode": "daemon",
+        "mode": "schedule",
+        "schedule": "* * * * *",
         "type": "general",
         "compact": true,
         "materialize": true,
