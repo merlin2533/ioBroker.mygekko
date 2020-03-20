@@ -11,7 +11,7 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 // const fs = require("fs");
 
-class Template extends utils.Adapter {
+class Mygekko extends utils.Adapter {
 
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
@@ -19,11 +19,11 @@ class Template extends utils.Adapter {
     constructor(options) {
         super({
             ...options,
-            name: 'template',
+            name: 'mygekko',
         });
         this.on('ready', this.onReady.bind(this));
-        this.on('objectChange', this.onObjectChange.bind(this));
-        this.on('stateChange', this.onStateChange.bind(this));
+//        this.on('objectChange', this.onObjectChange.bind(this));
+  //      this.on('stateChange', this.onStateChange.bind(this));
         // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
@@ -36,8 +36,8 @@ class Template extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        this.log.info('config option1: ' + this.config.option1);
-        this.log.info('config option2: ' + this.config.option2);
+        this.log.info('myGekko IP Adresse lautet ' + this.config.mygekkoIP);
+
 
         /*
         For every state in the system there has to be also an object of type state
@@ -98,7 +98,7 @@ class Template extends utils.Adapter {
      * Is called if a subscribed object changes
      * @param {string} id
      * @param {ioBroker.Object | null | undefined} obj
-     */
+     
     onObjectChange(id, obj) {
         if (obj) {
             // The object was changed
@@ -113,7 +113,7 @@ class Template extends utils.Adapter {
      * Is called if a subscribed state changes
      * @param {string} id
      * @param {ioBroker.State | null | undefined} state
-     */
+     *
     onStateChange(id, state) {
         if (state) {
             // The state was changed
@@ -123,7 +123,7 @@ class Template extends utils.Adapter {
             this.log.info(`state ${id} deleted`);
         }
     }
-
+*/
     // /**
     //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
     //  * Using this method requires "common.message" property to be set to true in io-package.json
@@ -149,8 +149,8 @@ if (module.parent) {
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
      */
-    module.exports = (options) => new Template(options);
+    module.exports = (options) => new Mygekko(options);
 } else {
     // otherwise start the instance directly
-    new Template();
+    new Mygekko();
 }
