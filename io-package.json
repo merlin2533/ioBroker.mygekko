@@ -84,7 +84,6 @@
         "dependencies": [
             {
                 "js-controller": ">=1.4.2",
-                "XMLHttpRequest ": "^1.80.0",
                 "request": "^2.83.0",
                 "xmlhttprequest": "^1.8.0"
             }
