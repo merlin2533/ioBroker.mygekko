@@ -19,7 +19,10 @@
     "url": "https://github.com/Vogelbecker/ioBroker.mygekko"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.2.1"
+    "@iobroker/adapter-core": "^2.2.1",
+    "XMLHttpRequest ": "^1.80.0",
+    "request": "^2.83.0",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "@iobroker/testing": "^2.1.0",
