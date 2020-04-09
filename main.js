@@ -42,7 +42,7 @@ class Mygekko extends utils.Adapter {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         const ip = '172.16.1.159';
         const m_user = 'admin';
-        const m_pass = '4347';
+        const m_pass = 'admin';
         const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
         
         const werte = async (device, name, type, role, value) => {
