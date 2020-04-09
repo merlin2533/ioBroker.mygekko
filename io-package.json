@@ -58,8 +58,7 @@
         "extIcon": "https://raw.githubusercontent.com/Vogelbecker/ioBroker.mygekko/master/admin/template.png",
         "readme": "https://github.com/Vogelbecker/ioBroker.mygekko/blob/master/README.md",
         "loglevel": "info",
-        "mode": "schedule",
-        "schedule": "* * * * *",
+        "mode": "daemon",
         "type": "general",
         "compact": true,
         "materialize": true,
@@ -84,7 +83,10 @@
         "supportCustoms": true,
         "dependencies": [
             {
-                "js-controller": ">=1.4.2"
+                "js-controller": ">=1.4.2",
+                "XMLHttpRequest ": "^1.80.0",
+                "request": "^2.83.0",
+                "xmlhttprequest": "^1.8.0"
             }
         ]
     },
