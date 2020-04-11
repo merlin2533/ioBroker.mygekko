@@ -9,6 +9,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
+const retus = require("retus");
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
@@ -43,7 +44,7 @@ class Mygekko extends utils.Adapter {
         const ip = '172.16.1.159';
         const m_user = 'admin';
         const m_pass = 'admin';
-        const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+        //const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
         
         const werte = async (device, name, type, role, value) => {
 
@@ -68,29 +69,11 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/blinds";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-        
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            blinds = data;
-        
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            blinds = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
         
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -140,29 +123,11 @@ class Mygekko extends utils.Adapter {
             var prefix = 'http://';
             var suffix = '/api/v1/var/lights';
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open('GET', url + '?username='+m_user+'&password='+m_pass, false);
-            xmlhttp.send(); 
-            lamps = data;
-
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open('GET', url + '/status?username='+m_user+'&password='+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            lamps = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
 
             //await this.createDeviceAsync('lights');
             //ausgabe zusammenbauen
@@ -190,59 +155,7 @@ class Mygekko extends utils.Adapter {
                         common: { name: LampName},
                         native: {}
                     });
-                    /*
-                    await this.setObjectNotExistsAsync('light.' + key + '.state', {
-                        type: 'state',
-                        common: {
-                            name: 'State',
-                            type: 'boolean',
-                            role: 'switch',
-                            read: true,
-                            write: true,
-                        },
-                        native: {},
-                    });
-                    await this.setStateAsync('light.' + key + ".state", { val: state, ack: true });
-
-                    await this.setObjectNotExistsAsync('light.' + key + '.DimmV', {
-                        type: 'state',
-                        common: {
-                            name: 'Dimm Value',
-                            type: 'boolean',
-                            role: 'level.dimmer',
-                            read: true,
-                            write: true,
-                        },
-                        native: {},
-                    });
-                    await this.setStateAsync('light.' + key + ".DimmV", { val: DimmValue, ack: true });
-
-                    await this.setObjectNotExistsAsync('light.' + key + '.rgb', {
-                        type: 'state',
-                        common: {
-                            name: 'RGB Color',
-                            type: 'boolean',
-                            role: 'level.color.rgb',
-                            read: true,
-                            write: true,
-                        },
-                        native: {},
-                    });
-                    await this.setStateAsync('light.' + key + ".rgb", { val: RGBColor, ack: true });
-
-                    await this.setObjectNotExistsAsync('light.' + key + '.sumstate', {
-                        type: 'state',
-                        common: {
-                            name: 'Sum State',
-                            type: 'boolean',
-                            role: 'indicator',
-                            read: true,
-                            write: true,
-                        },
-                        native: {},
-                    });
-                    await this.setStateAsync('light.' + key + ".sumstate", { val: Sum, ack: true });
-                    */
+                   
                     werte(objName + '.sumstate',  'sum state',    'boolean',  'indicator',        true)
                     werte(objName + '.state',     'state',        'boolean',  'switch',           state)
                     werte(objName + '.dimmv',     'Dimmer Value', 'number',   'level.dimmer',     DimmValue)
@@ -268,29 +181,11 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/roomtemps";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-        
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            roomTemps = data;
-        
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            roomTemps = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
         
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -357,29 +252,11 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/vents";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-        
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            vents = data;
-        
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            vents = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
         
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -464,29 +341,11 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/heatingsystems";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-        
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            heatingsystems = data;
-        
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                  data = JSON.parse(this.responseText);
-                }
-              };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            heatingsystems = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
         
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -539,29 +398,11 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/heatingcircuits";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            heatingcircuits = data;
-
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            heatingcircuits = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
 
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -617,29 +458,11 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/hotwater_systems";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            hotwater_systems = data;
-
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            hotwater_systems = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
 
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -701,29 +524,14 @@ class Mygekko extends utils.Adapter {
             var prefix = "http://";
             var suffix = "/api/v1/var/energycosts";
             var url = prefix + ip + suffix;
-            var xmlhttp = new XMLHttpRequest();
-
-            //Abfrage der Lampen
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open("GET", url + "?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            energycosts = data;
-
-            //Abfrage der Stati
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                data = JSON.parse(this.responseText);
-                }
-            };
-            
-            xmlhttp.open("GET", url + "/status?username="+m_user+"&password="+m_pass, false);
-            xmlhttp.send(); 
-            status = data;
+ 
+            this.log.info('start')
+            var { body } = retus(url + "?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            energycosts = body
+            this.log.debug(data)
+            body = retus(url + "/status?username="+m_user+"&password="+m_pass,{ method: "get", json: {}} )
+            status = body.body
+            this.log.debug(status)
 
             //ausgabe zusammenbauen
             for (var key in status) {
@@ -754,20 +562,19 @@ class Mygekko extends utils.Adapter {
                     werte(objName + '.energyMonth',        'Energy Month',          'number',  'value',        energyMonth)
                     werte(objName + '.energySum',          'Energy Sum',            'number',  'value',        energySum)
                     werte(objName + '.powerMax',           'Power Max',             'number',  'value.max',    powerMax)
+                    /*
+                    this.log.info("interner name " + key);
+                    this.log.info("Name " + energyName)
                     
-/*
-                    console.log("interner name " + key);
-                    console.log("Name " + energyName)
-                    
-                    console.log("actPower " + actPower)
-                    console.log("energyToday " + energyToday)
-                    console.log("energyMonth " + energyMonth)
-                    console.log("energySum " + energySum)
-                    console.log("powerMax " + powerMax)
-                    console.log("unitEnergy " + unitEnergy)
-                    console.log("unitPower " + unitPower)
-
-                    console.log("\n") */
+                    this.log.info("actPower " + actPower)
+                    this.log.info("energyToday " + energyToday)
+                    this.log.info("energyMonth " + energyMonth)
+                    this.log.info("energySum " + energySum)
+                    this.log.info("powerMax " + powerMax)
+                    this.log.info("unitEnergy " + unitEnergy)
+                    this.log.info("unitPower " + unitPower)
+*/
+                   
                     }
                 } 
 
@@ -785,7 +592,7 @@ class Mygekko extends utils.Adapter {
             heatingcircuit();
             hotwater_system();
             energycost();
-            console.log('done')
+            this.log.info('done')
         }, 1000);
         
         
