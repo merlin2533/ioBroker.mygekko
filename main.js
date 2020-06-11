@@ -39,11 +39,11 @@ class Mygekko extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        //this.log.info('myGekko IP Adresse lautet ' + this.config.mygekkoIP);
+        this.log.info('myGekko IP Adresse lautet ' + this.config.mygekkoIP);
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        const ip = '172.16.1.159';
-        const m_user = 'admin';
-        const m_pass = 'admin';
+        const ip = this.config.mygekkoIP;
+        const m_user = this.config.mygekkouser;
+        const m_pass = this.config.mygekkopassword;
         //const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
         
         const werte = async (device, name, type, role, value) => {
