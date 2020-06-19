@@ -2,17 +2,11 @@
 /* eslint-disable no-var */
 'use strict';
 
-/*
- * Created with @iobroker/create-adapter v1.23.0
- */
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 const retus = require("retus");
-//const request = require('request');
-// Load your modules here, e.g.:
-// const fs = require("fs");
 
 class Mygekko extends utils.Adapter {
 
@@ -40,11 +34,9 @@ class Mygekko extends utils.Adapter {
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
         this.log.info('myGekko IP Adresse lautet ' + this.config.mygekkoIP);
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         const ip = this.config.mygekkoIP;
         const m_user = this.config.mygekkouser;
         const m_pass = this.config.mygekkopassword;
-        //const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
         
         const werte = async (device, name, type, role, value) => {
 
@@ -225,7 +217,7 @@ class Mygekko extends utils.Adapter {
                     werte(objName + '.humidity',    'Humidity',         'number',  'value.humidity',        humidity)
                     werte(objName + '.airQuality',  'AirQuality',       'number',  'value',        airQuality)
                     werte(objName + '.floorTemp',   'FloorTemp',        'number',  'value.temperature',        floorTemp)
-                    /*
+                    
                     console.log("interner name " + key);
                     console.log("Name " + roomName)
                     console.log("actTemp " + actTemp)
@@ -240,7 +232,7 @@ class Mygekko extends utils.Adapter {
                     console.log("airQuality " + airQuality);
                     console.log("floorTemp " + floorTemp);
         
-                    console.log("\n")*/
+                    console.log("\n")
                     }
                 } 
         }
