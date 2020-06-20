@@ -1,7 +1,7 @@
 {
     "common": {
-        "name": "mygekko",
-        "version": "0.0.3",
+        "name": "MyGekko",
+        "version": "0.0.4",
         "news": {
             "0.0.1": {
                 "en": "initial release",
@@ -30,7 +30,7 @@
             "zh-cn": "Mygekko"
         },
         "desc": {
-            "en": "Template for adapter development",
+            "en": "Auslesen der Werte aus MyGekko",
             "de": "Vorlage für die Adapterentwicklung",
             "ru": "Шаблон для разработки адаптера",
             "pt": "Modelo para desenvolvimento de adaptadores",
@@ -43,6 +43,7 @@
         },
         "authors": [
             "Martin Friedrichs <info@vogelbecker.de>"
+            "Markus Straub"
         ],
         "keywords": [
             "ioBroker",
@@ -84,8 +85,6 @@
         "dependencies": [
             {
                 "js-controller": ">=1.4.2",
-                "request": "^2.83.0",
-                "xmlhttprequest": "^1.8.0",
                 "retus": "^1.1.1"
             }
         ]
